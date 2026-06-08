@@ -71,7 +71,7 @@ function Input({ label, ...props }) {
         fontFamily: 'Inter, sans-serif', outline: 'none', boxSizing: 'border-box',
         ...props.style
       }} onFocus={e => e.target.style.borderColor = '#1E6FD9'}
-         onBlur={e => e.target.style.borderColor = 'rgba(30,111,217,0.18)'}
+      onBlur={e => e.target.style.borderColor = 'rgba(30,111,217,0.18)'}
       />
     </div>
   )
@@ -96,7 +96,7 @@ export default function Roster() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState(null)
-  const [isAdmin, setIsAdmin] = useState(true)
+  const [isAdmin, setIsAdmin] = useState(true) 
   const [showLogin, setShowLogin] = useState(false)
   const [loginPw, setLoginPw] = useState('')
   const [loginErr, setLoginErr] = useState('')
@@ -114,7 +114,6 @@ export default function Roster() {
     setTimeout(() => setToast(null), 2500)
   }
 
-  // Load roster from API
   useEffect(() => {
     fetch('/api/roster')
       .then(r => r.json())
@@ -213,6 +212,7 @@ export default function Roster() {
   const vacant = officers.filter(o => o.status === 'Vacant').length
   const loa = officers.filter(o => o.status === 'LOA').length
   const sus = officers.filter(o => o.status === 'Suspended').length
+
   const now = new Date()
   const dateStr = now.toLocaleDateString('en-AU', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + now.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' })
 
@@ -248,9 +248,7 @@ export default function Roster() {
           <div style={{ background: '#0D1220', borderBottom: '1px solid rgba(30,111,217,0.32)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', left: 0, right: 0, height: 2, background: 'linear-gradient(90deg,transparent,rgba(30,111,217,0.4),transparent)', animation: 'scanline 3s linear infinite', pointerEvents: 'none' }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '16px 22px' }}>
-              <img src="https://i.ibb.co/4nKtx7NH/6708cb14-2548-4f3b-81d0-59018063e445-Photoroom.png"
-                alt="APD Badge" crossOrigin="anonymous"
-                style={{ width: 68, height: 68, objectFit: 'contain', borderRadius: '50%', border: '2px solid #7A5C1A', flexShrink: 0 }} />
+              <img src="https://i.ibb.co/4nKtx7NH/6708cb14-2548-4f3b-81d0-59018063e445-Photoroom.png" alt="APD Badge" crossOrigin="anonymous" style={{ width: 68, height: 68, objectFit: 'contain', borderRadius: '50%', border: '2px solid #7A5C1A', flexShrink: 0 }} />
               <div style={{ flex: 1 }}>
                 <h1 style={{ fontFamily: 'Rajdhani, sans-serif', color: '#E8EDF5', fontSize: 22, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', lineHeight: 1 }}>Aftermath Police Force</h1>
                 <p style={{ color: '#C9A84C', fontSize: 10, letterSpacing: 2.5, marginTop: 4, textTransform: 'uppercase', fontWeight: 500 }}>City of Aftermath — Official Personnel Roster</p>
@@ -264,12 +262,11 @@ export default function Roster() {
                     <button onClick={() => setIsAdmin(false)} style={{ background: 'none', border: 'none', color: '#4A5A78', cursor: 'pointer', fontSize: 12, marginLeft: 4, fontFamily: 'Rajdhani, sans-serif' }}>✕</button>
                   </div>
                 ) : (
-                  <button onClick={() => setShowLogin(true)} style={{ background: 'rgba(30,111,217,0.15)', border: '1px solid rgba(30,111,217,0.32)', borderRadius: 6, padding: '6px 14px', color: '#8A9BB8', fontSize: 11, fontFamily: 'Rajdhani, sans-serif', cursor: 'pointer', letterSpacing: 1, fontWeight: 700 }}>
-                    🔒 ADMIN LOGIN
-                  </button>
+                  <button onClick={() => setShowLogin(true)} style={{ background: 'rgba(30,111,217,0.15)', border: '1px solid rgba(30,111,217,0.32)', borderRadius: 6, padding: '6px 14px', color: '#8A9BB8', fontSize: 11, fontFamily: 'Rajdhani, sans-serif', cursor: 'pointer', letterSpacing: 1, fontWeight: 700 }}>🔒 ADMIN LOGIN</button>
                 )}
               </div>
             </div>
+
             {/* Stats bar */}
             <div style={{ display: 'flex', borderTop: '1px solid rgba(30,111,217,0.18)' }}>
               {[['Active', active, '#1DB954'], ['Vacant', vacant, '#8A9BB8'], ['LOA', loa, '#E8A020'], ['Suspended', sus, '#E53535'], ['Total', officers.length, '#3D8FFF']].map(([label, val, color]) => (
@@ -285,8 +282,7 @@ export default function Roster() {
           <div style={{ background: '#111827', padding: '10px 16px', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', borderBottom: '1px solid rgba(30,111,217,0.18)' }}>
             <div style={{ position: 'relative', flex: 1, minWidth: 140 }}>
               <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: '#4A5A78', fontSize: 14 }}>🔍</span>
-              <input value={fSearch} onChange={e => setFSearch(e.target.value)} placeholder="Search name, call sign, rank, Discord..."
-                style={{ ...inputStyle, width: '100%', paddingLeft: 30 }} />
+              <input value={fSearch} onChange={e => setFSearch(e.target.value)} placeholder="Search name, call sign, rank, Discord..." style={{ ...inputStyle, width: '100%', paddingLeft: 30 }} />
             </div>
             <select value={fStatus} onChange={e => setFStatus(e.target.value)} style={inputStyle}>
               <option value="">All Statuses</option>
@@ -297,9 +293,7 @@ export default function Roster() {
               {DIVS.map(d => <option key={d.id} value={d.id}>{d.label}</option>)}
             </select>
             {isAdmin && (
-              <button onClick={() => openModal()} style={{ background: '#1E6FD9', color: '#fff', border: 'none', borderRadius: 6, padding: '7px 14px', fontSize: 11, fontFamily: 'Rajdhani, sans-serif', cursor: 'pointer', letterSpacing: 1, fontWeight: 700, textTransform: 'uppercase' }}>
-                + Add Officer
-              </button>
+              <button onClick={() => openModal()} style={{ background: '#1E6FD9', color: '#fff', border: 'none', borderRadius: 6, padding: '7px 14px', fontSize: 11, fontFamily: 'Rajdhani, sans-serif', cursor: 'pointer', letterSpacing: 1, fontWeight: 700, textTransform: 'uppercase' }}>+ Add Officer</button>
             )}
             {saving && <span style={{ color: '#4A5A78', fontSize: 10, letterSpacing: 1 }}>Saving...</span>}
           </div>
