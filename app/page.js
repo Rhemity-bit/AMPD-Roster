@@ -96,7 +96,7 @@ export default function Roster() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState(null)
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(true)
   const [showLogin, setShowLogin] = useState(false)
   const [loginPw, setLoginPw] = useState('')
   const [loginErr, setLoginErr] = useState('')
